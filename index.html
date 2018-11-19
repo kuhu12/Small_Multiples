@@ -1,17 +1,180 @@
-<html>
-<head>
-  <script src="jquery-ui/external/jquery/jquery.js"></script>
-  <script src="https://d3js.org/d3.v2.min.js?2.8.1"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style_line.css">
- 
-  <title>Education</title>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- India State Map  -->
+    <title>Exploring 1979-2018 House Affordability Data</title>
+
+    <!--  Scripts  -->
+    <script type="text/javascript" src="scripts/d3.v4.js"></script>
+    <script src="scripts/queue.js"></script>
+    <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="scripts/jquery-ui.js"></script>
+    <script src="scripts/leaflet.js"></script>
+
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link href="scripts/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style_line.css">   
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/leaflet.css">
+   
+
+  </head>
+
 <body>
-    <div id="chart_placeholder"></div>
-  <div class="line-chart-container">
+  <div class="section margin_text">
+    <div class='row'>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h1><b>Where the House Affordability Is on the Fritz?</b></h1>
+        <h4>Kuhu Gupta</h4>
+        <h2>Exploring 1998-2018 Zillow House Affordability Data</h2>
+        
+      </div>
+      <div class="col-md-3"></div>
+    </div>
   </div>
-<script src="js/line.js"></script>
+  <div class="section" style="overflow: hidden;">
+    <div class="row">
+      <div class="col-md-3">
+        <h4 style="margin-left:10%;">How to read</h4>
+      </div>
+      <div class="col-md-4">
+        <h4><p class="resolution-preview"></p></h4>
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="section" style="margin-left:10%;">
+          <p>
+            The geographical map with circles show the the value of price to income ratio, mortgage and rent affordability in each of the Metropolitan Statistical Areas by selecting from radio buttons. Hover mouse over the dots in the chart to see the details, such as, Name of the city and measure value. The bigger the area of the circle higher is the measure value. Use the slider at the bottom to see the trends in data across 20 years.
+          </p>
+        </div>
+      </div>
+      
+      <div class="col-md-8">
+        <div id="map1" style="width:100%;height:500px"></div>
+        <hr>
+        <div id = "slider1"></div>
+      </div>
+      
+      <div class="col-md-2" style="display: inline;">
+        <div clas="row">
+         <h6>Details</h6>
+          <hr>
+          <ul class="list-group list-details" id="info_box"></ul>
+          <hr>
+        </div>
+        <div id="color_choice" class="row">
+          <input type="radio" name= "color"value="pt" id="b1" checked="checked"> Price To Income <br>
+          <input type="radio" name ="color" value="mor" id="b2"> Mortgage Affordability<br>
+          <input type="radio" name="color" value="rent" id="b3"> Rent Affordability <br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section" style="text-align:center; margin-top: 50px; margin-bottom:50px;">
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+  </div>
+  
+
+  <div class="section mviz_text">
+    <div class='row'>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        
+        <p>
+          Affordable housing, as a concept, is frequently misunderstood, shrouded in many of the same misconceptions as other social policies aimed at helping low-income and vulnerable populations. In the United States, the term affordable housing is used to describe housing, rental or owner-occupied, that is affordable no matter what one's income is. The U.S. government regards housing costs at or below 30% of one income to be affordable. Housing is a person single most important expense. While a roof over someone head is something too often taken for granted, a roof and four walls imbue people with a sense of stability, one that allows them to turn their attention to other priorities, like finding a better job or helping their kids with school. And so, when housing is uncertain, or when so much of a paycheck goes to rent that it keeps someone from basic necessities, it impossible to think about anything else.</p> 
+
+          <p>So lets to clear up some of those myths.</p>
+
+          <p>Zillow Research aggregates data for over past 39 years to get the better sense of the concept of afforadable housing. The data is collected under three measures Price To Income Ratio, Mortgage Affordability and Rental Affordability</p>
+
+          <p>The price to income ratio is the basic affordability measure for housing in a given area. It is generally the ratio of median house prices to median familial disposable incomes, expressed as a percentage or as years of income. The rule of thumb long used by real estate agents and homebuyers is that you can afford a house if its price is equivalent to roughly 2.6 years of your household income. That ratio is based on historical nationwide averages under healthy economic conditions. But today, in many places around the country—particularly in coastal cities in California and along the New York–Boston–Washington corridor—housing has become staggeringly more expensive than that as seen in the map wwith bigger circles on the west coast of US.</p>
+
+          <p>Mortgage affordability is the amount of money a mortgage borrower can make on a monthly basis towards a mortgage, based upon their income, expenses, and the proposed monthly payment.On the other hand, Knowing what you want in a rental apartment is pretty easy: space, location, storage, beautiful floors, light, etc. Finding all of those things within your budget can be a bit more difficult. But before you even start contemplating your rental possibilities, you should probably know what your budget is, and fortunately, this step isnt all that difficult. This is something called as rental affordability.</p>
+
+          <p>Moreover, the trend in house affordability has gone through significant changes not only over time but also geographically. Thus, it becomes important to have a closer look at some of the major cities.</p>
+
+        </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  <div class="section margin_text">
+    <div class='row'>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <h2>House Affordability Trends in Major Cities</h2>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+
+  <div class="section" style="overflow: hidden;">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="section" style="margin-left:10%;">
+          <svg width='10' height='10'> 
+            <rect width='10' height='10' style='fill:#377eb8;opacity: 0.5;' /> 
+          </svg>
+            Price to Income  <br>
+          <svg width='10' height='10'> 
+            <rect width='10' height='10' style='fill:#4daf4a;opacity: 0.5;' /> 
+          </svg> 
+           Mortgage Affordability <br>
+          <svg width='10' height='10'> 
+            <rect width='10' height='10' style='fill:#f781bf;opacity: 0.5;' /> 
+          </svg> 
+            Rent Affordability <br>
+        </div>
+      </div>
+      
+      <div class="col-md-9">
+        <div class="line-chart-container">
+      </div>
+      
+      <div class="col-md-1" style="display: inline;">
+      </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="section mviz_text">
+    <div class='row'>
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        
+        <p>
+          <hr>
+          <h4>About the data</h4>
+          The data was taken from Zillow Research website. The data required a lot in terms of cleaning due to missing values and and inconsistent number of cities for different categories. I also made an addition 
+          to the dataset of adding the Latitude and Longitude of the Region Areas.
+
+        </p>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+  <div class="section" style="text-align:center; margin-top: 50px; margin-bottom:50px;">
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+    <span class="circle-seperate" style="background: #c0c5ce;">&nbsp  &nbsp &nbsp</span>&nbsp  &nbsp &nbsp
+  </div>
+  <script src="js/pti_map.js">  </script>
+  <script src="js/line.js">  </script>
+  
 </body>
 </html>

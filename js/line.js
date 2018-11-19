@@ -32,44 +32,27 @@ d3.select("body")
 .attr("width", 100)
 .attr("height", 110)
 .style("top", 700)
-.style("left", 50)
-.append("foreignObject",":nth-child(2)")
-.attr("width", 100)
-.attr("height", 110)
-.append("xhtml:body")
-.style("fill", "#b2b2b2")
-.attr("class", "noselect")
-.attr("class", "color-labels")
-.html(function() {
-  return "<svg width='10' height='10'> \
-        <rect width='10' height='10' style='fill:#377eb8;opacity: 0.5;' /> \
-      </svg> \
-        Price to Income  <br>\
-      <svg width='10' height='10'> \
-        <rect width='10' height='10' style='fill:#4daf4a;opacity: 0.5;' /> \
-      </svg> \
-        Mortgage Affordability <br>\
-      <svg width='10' height='10'> \
-        <rect width='10' height='10' style='fill:#f781bf;opacity: 0.5;' /> \
-      </svg> \
-        Rent Affordability <br>";
-});
+.style("left", 50);
 
-var margin = {top: 20, right: 65, bottom: 20, left: 50},
-width2 = 325 - margin.left - margin.right,
-height2 = 200 - margin.top - margin.bottom;
 
-var x = d3.scaleLinear().range([0, width2]);
-var y = d3.scaleLinear().range([height2, 0]);
-var maxy=0;
-var bisectYear=d3.bisector(function(d){return d.Year}).left;
 
-var parseTime = d3.timeParse("%Y-%m");
+
+
+
 
 
 function Educationlinechart(i,callback){
+  var parseTime = d3.timeParse("%Y-%m");
+  var margin = {top: 20, right: 65, bottom: 20, left: 50},
+width2 = 325 - margin.left - margin.right,
+height2 = 200 - margin.top - margin.bottom;
+
+var x = d3.scaleTime().range([0, width2]);
+var y = d3.scaleLinear().range([height2, 0]);
+var maxy=0;
+
   var filename=files[i]+".csv";
-  d3.csv("csv/"+filename, function(error, loaded) {
+  d3.csv("./data/csv/"+filename, function(error, loaded) {
    if (error) throw error;
 
    loaded.forEach(function(d) {
@@ -105,14 +88,7 @@ function Educationlinechart(i,callback){
     .attr("class", function(){return "line line"+(i+1);})
     .attr("d", valueline).attr("stroke",colours[i]);
   }
-           /*g.append("path")
-           .data([data2])
-           .attr("class", "line line2")
-           .attr("d", valueline);
-           g.append("path")
-           .data([data3])
-           .attr("class", "line line3")
-           .attr("d", valueline);*/
+         
 
 
            var Xaxis = g.append("g")
@@ -143,11 +119,11 @@ function Educationlinechart(i,callback){
             d3.selectAll(".description").selectAll("text").remove();
             mouseX=d3.mouse(this)[0];
             x0=x.invert(d3.mouse(this)[0]);
-
+            //console.log(x0)
+            var bisectYear=d3.bisector(function(d){return d.Year}).left;
             index=bisectYear(data1,x0);
 
             dl=data1[index];
-
 
             if(dl!=undefined){
               year=dl.Year;
@@ -161,10 +137,12 @@ function Educationlinechart(i,callback){
 
 
                 toolt=d3.select(this);
-                toolt.select(".description").append("text").text(name).style("font-weight","bold").style("fill","#bbb").attr("y","1.2em").attr("x",5);
+               // console.log(this)
+                toolt.select(".description").append("text").text(format(year)).style("font-weight","bold").style("fill","#bbb").attr("y","1.2em").attr("x",5);
                 pth=d3.select(this.parentElement).selectAll(".line").each(function (d,i){
-                 console.log(d)
-                  text=d[year][levels[i]];
+                 //console.log(d)
+                  text=(d[index][levels[i]]).toFixed(2);
+                  console.log(typeof text)
                       ////console.log(i);
                       col=d3.select(this).style("stroke");
                       toolt.select(".description").append("text").text(text).style("fill",col).attr("y",function(){return (i+2)*1.2+"em" ;}).attr("x",5);

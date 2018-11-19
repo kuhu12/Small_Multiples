@@ -1,0 +1,254 @@
+body, html{
+  font-family: 'Roboto Condensed', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.radio, .checkbox{
+	display:inline !important;
+}
+
+.mviz_container{
+  margin-top: 20px;
+  text-align: center;
+  position: relative;
+  z-index: 999;
+}
+
+.mviz_text{
+  position: relative;
+  z-index: -999;
+}
+
+.turnout_text{
+	position:relative;
+	z-index:-999;
+}
+
+.line {
+  fill: none;
+  stroke-width: 4px;
+}
+
+.map-hover{
+  stroke: #333333;
+  stroke-width: 3px;
+}
+.axis{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 15px;
+}
+
+.axis--x line{
+  stroke:transparent;
+}
+.axis--x path  {
+  stroke:transparent;
+}
+
+.axis--y line{
+  stroke:#c0c5ce;
+}
+.axis--y path {
+  stroke:#c0c5ce;
+}
+
+.axis--y text {
+  font-size: 10px;
+  stroke:#a7adba;
+}
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: normal;
+  padding: 12px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  border: 1.5px solid black;
+  border-radius: 3px;
+  box-shadow: 3px 3px 3px #888888;
+}
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.circle {
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      opacity: 0.7;
+    }
+
+.circle-seperate {
+      width: 1px;
+      height: 1px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 10px;
+      font-size: 5px;
+    }
+
+.rectangle {
+      width: 20px;
+      height: 20px;
+    }
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22.6px;
+  margin: 0;
+  margin-bottom: -4px;
+  padding: 0;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e7298a;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17.3px;
+  width: 17.3px;
+  left: 2.6px;
+  bottom: 2.6px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #6a51a3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #6a51a3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(17.3px);
+  -ms-transform: translateX(17.3px);
+  transform: translateX(17.3px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 25px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* Manas styles */
+#tout_chart_container path{
+	stroke:black;
+	stroke-width:0.2;
+}
+
+.tool{
+	position:relative;
+  z-index: 1000000;
+}
+
+svg{
+  overflow: visible !important;
+}
+g{
+  overflow: visible !important;
+}
+
+.map_label{
+  font-size: 14px;
+
+}
+
+.map_label_small{
+  font-size: 9px;
+}
+
+.description rect {
+    stroke: #000;
+    stroke-width: 0.5px;
+    border: 2px solid black;
+    fill: #fff;
+    opacity: 1;
+}
+
+.description text{
+  font-size: 18px;
+  color: #aaa;
+}
+
+.toviz{
+  text-align: center;
+}
+.hideconsti{
+	fill-opacity:0;
+}
+
+.hidden{
+  display: none;
+}
+
+.toggle_checkbox{
+  margin-left: 10px;
+  text-decoration: none;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.checkbox_label:hover > .toggle_checkbox{
+  color: #777;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.position_toggle_container{
+  margin-left: 10px;
+  display: inline-block;
+}
+#year_dropdown{
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 30px;
+}
+#year_dropdown > form > div{
+  display: block;
+}
+
+.options_container{
+    position: relative;
+  bottom: 100px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  display:inline
+}
